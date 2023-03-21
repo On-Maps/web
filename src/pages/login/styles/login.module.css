@@ -1,0 +1,106 @@
+.sectionContainer {
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+.inputContainer {
+  display: grid;
+  width: 90%;
+  height: 100%;
+  gap: 16px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.input {
+  border-radius: 8px;
+  height: 32px;
+  width: 100%;
+  background-clip: padding-box;
+  border-style: solid;
+  border-color: rgb(209 213 219);
+  text-decoration-color: rgb(55 65 81);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  color: #374151;
+  background-color: #f2f2f5;
+  outline: none;
+  padding: 1rem;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.75rem;
+
+}
+
+.input:focus {
+  border-color: #2563EB;
+  color: #374151;
+  background-color: #fff;
+  outline: none;
+}
+
+.button {
+  background-color: #2563EB;
+  border-radius: 8px;
+  width: 120px;
+  height: 40px;
+  border-style: none;
+  text-decoration-color: rgb(55 65 81);
+}
+
+.registerContainer {
+  margin-top: 8px;
+  font-weight: 200;
+  font-size: 16px;
+  color: #000;
+  font-family: 'Roboto', sans-serif;
+}
+
+.registerSpan {
+  color: red;
+}
+
+.rememberAndPasswordContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+  color: #000;
+  font-weight: 200;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.rememberContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.passwordContainer {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 8px;
+}
+
+.logintitle {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 2.5rem;
+  color: #374151;
+  font-family: 'Roboto', sans-serif;
+}
