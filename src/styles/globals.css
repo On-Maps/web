@@ -135,3 +135,15 @@ ul {
   line-height: 20px;
   font-weight: 100;
 }
+
+input:-webkit-autofill,
+input:-internal-autofill-selected,
+input:-internal-autofill-previewed {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: rgb(var(--foreground-rgb)) !important;
+}
+
+.leaflet-popup-content {
+  margin: 15px !important;
+}

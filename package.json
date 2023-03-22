@@ -23,12 +23,16 @@
     "react-hook-form": "^7.43.7",
     "react-icons": "^4.8.0",
     "react-leaflet": "^4.2.1",
+    "react-no-ssr": "^1.1.0",
     "react-query": "^3.39.3",
+    "react-ssr-prepass": "^1.5.0",
     "styled-components": "^5.3.9",
+    "swiper": "^9.1.1",
     "typescript": "5.0.2",
     "yup": "^1.0.2"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.3"
+    "@types/leaflet": "^1.9.3",
+    "@types/react-no-ssr": "^1.1.3"
   }
 }

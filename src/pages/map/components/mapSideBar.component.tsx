@@ -3,304 +3,178 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "../styles/MapSideBar.module.css";
 import { FaUser } from "react-icons/fa";
+import { DataMapCategories, DataCampus, DataEvents } from "@/pages/data";
+import Image from "next/image";
+import ImageHeader from "../../../assets/header.png";
+import { IoClose } from "react-icons/io5";
+import { useMapInfo } from "../context/useMapInfo.context";
 
-type TProps = {
-  visible: boolean;
-  setVisible: (visible: boolean) => void;
-};
+export function MapSideBar() {
+  const { position, setPosition, config, setConfig, viewMenu, setViewMenu } =
+    useMapInfo();
 
-export function MapSideBar({ visible, setVisible }: TProps) {
   const router = useRouter();
   const [latitudeUser, setLatitudeUser] = useState("");
   const [longitudeUser, setLongitudeUser] = useState("");
-  const [config, setConfig] = useState("");
+  const [range, setRange] = useState("1");
   const [inputCheck, setCheck] = useState(true);
 
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
     }
   }
 
   function showPosition(position: any) {
-    setLatitudeUser(position.coords.latitude);
-    setLongitudeUser(position.coords.longitude);
+    setPosition({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
   }
 
   function handleMyLocaltion() {
     router.push(`/map/${latitudeUser}/${longitudeUser}`);
   }
 
-  function teste(value: any) {
-    console.log(value);
-  }
-
   return (
     <>
       <div
         className={
-          visible ? `${styles.sidebar} ${styles.active}` : styles.topnavmap
+          viewMenu ? `${styles.sidebar} ${styles.active}` : styles.sidebar
         }
-        id="sidebar"
       >
-        <ul>
-          <section className={styles.tag} id="campus">
-            <h6>Campus</h6>
-            <label id="jacarezinho">
-              Jacarézinho
-              <Link href="/map/-23.1497471/-49.9795701" />
-            </label>
-            <br />
-            <label id="cornelio">
-              Cornélio Procópio
-              <Link href="/map/-23.1747224/-50.6700414" />
-            </label>
-            <br />
-            <label id="bandeirantes">
-              Bandeirantes
-              <Link href="/map/-23.108/-50.3594239" />
-            </label>
-          </section>
-          <section className={styles.tag} id="myLocation">
-            <ul>
-              <div className={styles.radio}>
-                <label>
-                  <FaUser
-                    style={{
-                      color: "white",
-                      marginRight: "10px",
-                      fontSize: "20px",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  <input type="button" value="" onClick={handleMyLocaltion} />
-                  Sua localização
-                </label>
-                <br />
-              </div>
-            </ul>
-          </section>
-          <section className={styles.tag} id="settings">
-            <ul>
-              <li>
-                <i
-                  className="fa fa-cog"
-                  style={{
-                    color: "white",
-                    marginRight: "10px",
-                    fontSize: "20px",
-                    marginBottom: "10px",
+        {/* header */}
+        <section className={`${styles.header} ${styles.tag}`}>
+          <Link href="/">
+            <Image src={ImageHeader} alt="logo" className={styles.image} />
+          </Link>
+          <IoClose
+            className={styles.icon}
+            size={20}
+            onClick={() => {
+              setViewMenu(false);
+            }}
+          />
+        </section>
+        {/* my location */}
+        <section className={styles.tag}>
+          <div className={styles.title}>
+            <FaUser className={styles.icon} />
+            <b onClick={getLocation}>Sua Localização</b>
+          </div>
+        </section>
+        {/* campus */}
+        <section className={styles.tag}>
+          <div className={styles.title}>
+            {/* <FaMapMarkerAlt className={styles.icon} /> */}
+            <b onClick={handleMyLocaltion}>Campus</b>
+          </div>
+          <ul>
+            {DataCampus.map((campus, _index) => (
+              <li key={_index}>
+                <label
+                  className={styles.radio}
+                  onClick={() => {
+                    setPosition({
+                      latitude: campus.lat,
+                      longitude: campus.lng,
+                    });
                   }}
-                ></i>
-                <label style={{ fontWeight: "bold" }}>Configurações</label>
+                >
+                  <span>{campus.title}</span>
+                </label>
               </li>
-              <label
-                style={{
-                  fontSize: "15px",
-                  lineHeight: "20px",
-                  fontWeight: 100,
-                }}
-              >
-                Tamanho icone:&nbsp;&nbsp;&nbsp;
+            ))}
+          </ul>
+        </section>
+        {/* events */}
+        <section className={`${styles.events} ${styles.tag}`}>
+          <div className={styles.title}>
+            {/* <AiFillCalendar className={styles.icon} /> */}
+            <b>Eventos</b>
+          </div>
+          <ul>
+            {DataEvents.map((event, _index) => (
+              <li key={_index}>
+                <Link href={`/place/${event.id}`} className={styles.radio}>
+                  {event.title}
+                  <span>{event.date}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+        {/* settings */}
+        <section className={styles.tag}>
+          <div className={styles.title}>
+            {/* <FaCog className={styles.icon} /> */}
+            <b>Configurações</b>
+          </div>
+          <ul>
+            <li>
+              <label className={styles.range}>
+                <span>Tamanho icone:</span>
                 <input
-                  style={{ cursor: "pointer", width: "110px" }}
                   type="range"
                   min="1"
                   max="8"
                   step="1"
+                  defaultValue={range}
                   onChange={(e) => {
-                    teste(e.target.value);
+                    setRange(e.target.value);
                   }}
                 />
               </label>
-              <br />
-              <div className={styles.radio} style={{ lineHeight: "25px" }}>
-                <label>
-                  <input
-                    checked={inputCheck}
-                    id="input-checked"
-                    type="radio"
-                    name="radioConfig"
-                    value=""
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(true);
-                    }}
-                  />{" "}
-                  Todas opções
-                </label>
-                <br />
-                <label>
+            </li>
+            {DataMapCategories.map((category, _index) => (
+              <li key={_index}>
+                <label className={styles.radio}>
                   <input
                     type="radio"
-                    name="radioConfig"
-                    value="evento"
+                    name="category"
+                    value={category.value}
+                    checked={config === category.value}
                     onChange={(e) => {
                       setConfig(e.target.value);
-                      setCheck(false);
                     }}
-                  />{" "}
-                  Evento
+                  />
+                  <span>{category.title}</span>
                 </label>
-                <br />
-                <label>
-                  <input
-                    id="sala"
-                    type="radio"
-                    name="radioConfig"
-                    value="sala"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Sala
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="laboratório"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Laboratório
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="secretaria"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Secretaria
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="biblioteca"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Biblioteca
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="banheiro"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Banheiro
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="auditorio"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Auditório
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="clínica"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Clinica
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="lanchonete"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Lanchonete
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="lazer"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Lazer
-                </label>
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    name="radioConfig"
-                    value="acessibilidade"
-                    onChange={(e) => {
-                      setConfig(e.target.value);
-                      setCheck(false);
-                    }}
-                  />{" "}
-                  Acessibilidade
-                </label>
-                <br />
-              </div>
-            </ul>
-          </section>
-          <section className={styles.tag} id="infos">
-            <ul>
-              <li>
-                <i
-                  className="fa fa-info-circle "
-                  style={{
-                    color: "white",
-                    marginRight: "10px",
-                    fontSize: "20px",
-                    marginBottom: "10px",
-                  }}
-                ></i>
-                <label style={{ fontWeight: "bold" }}>Informações</label>
               </li>
-              <li>
-                <label>Latitude: {22222213}</label>
-              </li>
-              <li>
-                <label>Longitude: {88888888}</label>
-              </li>
-            </ul>
-          </section>
-        </ul>
+            ))}
+          </ul>
+        </section>
+        {/* <section className={styles.tag} id="infos">
+          <ul>
+            <li>
+              <i
+                className="fa fa-info-circle "
+                style={{
+                  color: "white",
+                  marginRight: "10px",
+                  fontSize: "20px",
+                  marginBottom: "10px",
+                }}
+              ></i>
+              <label style={{ fontWeight: "bold" }}>Informações</label>
+            </li>
+            <li>
+              <label>Latitude: {22222213}</label>
+            </li>
+            <li>
+              <label>Longitude: {88888888}</label>
+            </li>
+          </ul>
+        </section> */}
       </div>
+      <div
+        className={styles.backdrop}
+        style={{
+          display: viewMenu ? "block" : "none",
+        }}
+      ></div>
     </>
   );
 }
