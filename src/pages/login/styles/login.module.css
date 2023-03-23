@@ -21,31 +21,63 @@
 .cardContainer {
   background-color: #fff;
   border-radius: 8px;
-  margin: 24px;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .1);
+  margin: auto;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+  width: 400px;
 }
 
 .formContainer {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin: 16px;
+  gap: 12px;
+  margin: 40px 40px;
+}
+
+.formContainer input {
+  width: 95%;
+}
+
+.formContainer button {
+  margin: 10px 0;
+  width: 100%;
 }
 
 .formContainer h1 {
   font-size: 30px;
   font-weight: 700;
+  margin: 0 0 14px 0;
 }
 
 .rememberMeContainer {
+  width: 100%;
+  white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 14px;
+  /* block user select text */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
 }
 
+.rememberMeContainer a {
+  transition: 0.2s;
+}
+
+
 .rememberMeContainer a:hover {
-  color: red
+  color: #5b8bf3;
 }
 
 .rememberMeContainer div {
@@ -56,36 +88,26 @@
 
 .span {
   font-weight: bold;
-  color: #2563EB;
+  color: #2563eb;
 }
 
 .createAccount {
   display: flex;
-  gap: 8px;
+  gap: 4px;
 }
 
-@media screen and (max-width: 768px) {
+.imageContainer {
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 1024px) {
   .mainContainer {
     grid-template-columns: 1fr;
     justify-content: center;
   }
 
-  .cardContainer {
-    margin: 8px;
-  }
-
-  .formContainer {
-    justify-content: center;
-    margin: 8px;
-  }
-
-  .formContainer h1 {
-    font-size: 1.5rem;
-  }
-
   .imageContainer {
-    width: 100%;
-    margin: 8px;
-    height: fit-content;
+    display: none;
   }
 }
