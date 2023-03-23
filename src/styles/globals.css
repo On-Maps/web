@@ -32,7 +32,7 @@ a {
   text-decoration: none;
 }
 
-button[type='submit'] {
+/* button[type='submit'] {
   background-color: #2563eb;
   border-radius: 8px;
   width: 120px;
@@ -86,7 +86,7 @@ input[type='password']:focus {
 
 input[type='checkbox'] {
   cursor: pointer;
-}
+} */
 
 .leaflet-popup-content {
   margin: 15px !important;
