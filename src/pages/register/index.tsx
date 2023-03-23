@@ -4,7 +4,7 @@ import styles from './styles/register.module.css'
 export default function Register() {
   return (
     <section className={styles.sectionContainer}>
-      <Image src="" alt="imagem register" width={100} height={100} />
+      <Image src="/register.jpg" alt="imagem register" width={500} height={500} />
       <div className={styles.cardContainer}>
         <div>
           <form className={styles.formContainer}>
