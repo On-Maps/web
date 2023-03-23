@@ -7,6 +7,7 @@ import { queryClient } from '@/clients'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { createCustomTheme } from '@/theme'
 import AxiosInterceptor from '@/clients/http/AxiosInterceptor'
+import { DashboardLayout } from '@/layouts'
 
 export default function App({ Component, pageProps }: AppProps) {
   const isMapRoute = Component.name === 'Map'
@@ -28,7 +29,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={createCustomTheme()}>
         <CssBaseline />
         <AxiosInterceptor>
-          <Component {...pageProps} />
+          <DashboardLayout>
+            <Component {...pageProps} />
+          </DashboardLayout>
         </AxiosInterceptor>
       </ThemeProvider>
     </QueryClientProvider>
