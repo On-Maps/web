@@ -87,3 +87,7 @@ input[type='password']:focus {
 input[type='checkbox'] {
   cursor: pointer;
 }
+
+.leaflet-popup-content {
+  margin: 15px !important;
+}
