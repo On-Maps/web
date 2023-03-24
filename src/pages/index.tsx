@@ -1,6 +1,7 @@
 import styles from '@/styles/Home.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { DataCampus } from '@/data'
 
 export default function Home() {
   return (
@@ -16,17 +17,18 @@ export default function Home() {
               height={100}
             />
           </section>
-          <Link href="#" className={styles.buttonCampus}>
-            <h4 className={styles.TextButton}>Bandeirantes</h4>
-          </Link>
-          <Link href="#" className={styles.buttonCampus}>
-            <h4 className={styles.TextButton}>Cornélio Procópio</h4>
-          </Link>
-          <Link href="#" className={styles.buttonCampus}>
-            <h4 className={styles.TextButton}>Jacarezinho</h4>
-          </Link>
-          <Link href="#" className={styles.buttonCampusAlternative}>
-            <h4 className={styles.TextButton}>Procurar uma Sala</h4>
+          {DataCampus.map((campus, _index) => (
+            <Link
+              key={_index}
+              href={`/map/${campus.lat}/${campus.lng}`}
+              className={styles.buttonCampus}
+            >
+              <h4 className={styles.TextButton}>{campus.title}</h4>
+            </Link>
+          ))}
+
+          <Link href="/place/list" className={styles.buttonCampusAlternative}>
+            <h4 className={styles.TextButton}>Procurar Local</h4>
           </Link>
           <Link href="/login" className={styles.buttonLogin}>
             <h4 className={styles.TextButton}>Entrar como Administrador</h4>
