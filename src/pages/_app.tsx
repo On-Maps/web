@@ -12,9 +12,13 @@ import { DashboardLayout } from '@/layouts'
 export default function App({ Component, pageProps }: AppProps) {
   const isMapRoute = Component.name === 'Map'
   const isLoginRoute = Component.name === 'Login'
-  const isHomeRoute = Component.name === ''
+  const isHomeRoute = Component.name === 'Home'
+  const is404ErrorRoute = Component.name === 'Custom404'
 
-  if (isMapRoute || isLoginRoute || isHomeRoute) {
+  console.log(Component.name)
+  
+
+  if (isMapRoute || isLoginRoute || isHomeRoute || is404ErrorRoute ) {
     return (
       <MapInfoProvider>
         <NoSSR>
