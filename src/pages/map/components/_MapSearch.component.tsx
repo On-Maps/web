@@ -87,7 +87,7 @@ export function MapSearch() {
         id="card"
         style={{
           marginLeft: 10,
-          width: '100%',
+          width: 'calc(100% + 2px)',
         }}
       >
         {rooms.map((room) => {
