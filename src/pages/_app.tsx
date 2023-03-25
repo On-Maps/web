@@ -15,10 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const isHomeRoute = Component.name === 'Home'
   const is404ErrorRoute = Component.name === 'Custom404'
 
-  console.log(Component.name)
-  
-
-  if (isMapRoute || isLoginRoute || isHomeRoute || is404ErrorRoute ) {
+  if (isMapRoute || isLoginRoute || isHomeRoute || is404ErrorRoute) {
     return (
       <MapInfoProvider>
         <NoSSR>

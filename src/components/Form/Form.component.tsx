@@ -10,6 +10,7 @@ import { FormSwitchInput } from './FormSwitchInput.component'
 import { FormTextInput } from './FormTextInput.component'
 import { FormFileInput } from './FormFileInput.component'
 import { FormCheckbox } from './FormCheckbox.component'
+import { FormSelectCheckboxInput } from './FormSelectCheckboxInput.component'
 
 type Props = Omit<
   GridTypeMap<React.FormHTMLAttributes<HTMLFormElement>>['props'],
@@ -50,3 +51,4 @@ Form.MaskedTextInput = FormMaskedTextInput
 Form.SwitchInput = FormSwitchInput
 Form.FileInput = FormFileInput
 Form.Checkbox = FormCheckbox
+Form.SelectCheckboxInput = FormSelectCheckboxInput

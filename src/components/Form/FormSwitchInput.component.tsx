@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   Grid,
   GridTypeMap,
@@ -43,12 +44,14 @@ export const FormSwitchInput = (props: Props) => {
           control={control}
           defaultValue={false}
           render={({ field }) => (
-            <IOSSwitch {...field} checked={field.value} {...switchProps} />
+            <Box>
+              <IOSSwitch {...field} checked={field.value} {...switchProps} />
+            </Box>
           )}
         ></Controller>
       </FormControl>
       <InputLabel
-        sx={{ color: '#0A2834' }}
+        sx={{ color: '#0A2834', height: 35, marginLeft: 1 }}
         error={!!_get(errors, `${id}.message`)}
         {...labelProps}
       >

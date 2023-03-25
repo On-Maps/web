@@ -5,7 +5,10 @@ export type TPlace = {
   name: string
   description: string
   category: TMapCategories
-  position: [number, number]
+  position: {
+    latitude: number
+    longitude: number
+  }[]
   image: {
     url: string
     name: string
@@ -16,10 +19,11 @@ export type TPlace = {
   accessibility: boolean
   capacity: number
   equipments: string[]
-  operation: {
+  date?: {
     start: string
     end: string
   }
+  open24h?: boolean
   responsible?: {
     name?: string
     email?: string

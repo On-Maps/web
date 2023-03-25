@@ -137,7 +137,7 @@ export const Navigation = (props: HeaderDrawerProps) => {
                 color: iconColor,
               },
             },
-            px: 2,
+            px: '16px !important',
             py: '3px',
             ...appBarProps?.sx,
           }}

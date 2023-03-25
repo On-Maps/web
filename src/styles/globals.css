@@ -25,6 +25,11 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background-color: #f2f2f5;
+  padding: 0 !important;
+}
+
+.css-j76isy-MuiPaper-root-MuiAppBar-root {
+  /* padding: 0 !important; */
 }
 
 a {
