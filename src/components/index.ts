@@ -1,0 +1,1 @@
+export { SelectCampus } from "./SelectCampus/SelectCampus.component"
