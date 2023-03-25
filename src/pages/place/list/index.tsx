@@ -70,33 +70,39 @@ export default function PlaceList() {
       <Box
         sx={{ ...flexCenterContent, gap: 2, width: 1, flexDirection: 'column', p: 4, fontWeight: 700, color: '#0000008A' }}
       >
-        <h1>Descubra lugares, faça uma pesquisa!</h1>
         <Box sx={{
-          width: 1, alignItems: 'center', display: 'flex', gap: 2,
+          width: 1, alignItems: 'center', display: 'flex', gap: 2, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 2
         }}>
-          <TextField
+          <h1>Descubra lugares, faça uma pesquisa!</h1>
+          <Box
             sx={{
-              height: 'auto',
-              width: '100%',
+              ...flexCenterContent, gap: 2, width: '80%', mb: 6
             }}
-            InputProps={{
-              endAdornment: <Search />,
-            }}
-            disabled={!campus}
-            placeholder={
-              campus
-                ? `Pesquise por ${campus === 'cornelio' ? 'Cornélio Procópio' : campus === 'bandeirantes' ? 'Bandeirantes' : 'Jacarezinho'}` : 'Selecione um campus'
-            }
-          />
-          {typeCard === 'list' ? (
-            <WindowIcon
-              onClick={() => setTypeCard('grid')}
+          >
+            <TextField
+              sx={{
+                height: 'auto',
+                width: '100%',
+              }}
+              InputProps={{
+                endAdornment: <Search />,
+              }}
+              disabled={!campus}
+              placeholder={
+                campus
+                  ? `Pesquise por ${campus === 'cornelio' ? 'Cornélio Procópio' : campus === 'bandeirantes' ? 'Bandeirantes' : 'Jacarezinho'}` : 'Selecione um campus'
+              }
             />
-          ) : (
-            <ViewListIcon
-              onClick={() => setTypeCard('list')}
-            />
-          )}
+            {typeCard === 'list' ? (
+              <WindowIcon
+                onClick={() => setTypeCard('grid')}
+              />
+            ) : (
+              <ViewListIcon
+                onClick={() => setTypeCard('list')}
+              />
+            )}
+          </Box>
         </Box>
         {rooms.map((room) => {
           return <PlaceCardSearch type={typeCard} room={room} key={room.id} />
