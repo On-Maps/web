@@ -11,11 +11,7 @@ export default function Place() {
   })
 
   return (
-    <Box
-      sx={{
-        backgroundColor: 'white',
-      }}
-    >
+    <>
       <Form
         id="fast-pre-authorizations-create"
         handler={formHandler}
@@ -81,6 +77,6 @@ export default function Place() {
           Criar Pré-Autorização
         </Form.SubmitBtn>
       </Form>
-    </Box>
+    </>
   )
 }
