@@ -49,7 +49,15 @@ export default function Map() {
       <MapSearch />
       <MapHeader />
       <MapSideBar />
-      <MapComponent latitude={position.latitude} longitude={position.longitude}>
+      <MapComponent
+        center={[position.latitude, position.longitude]}
+        mapStyle={{
+          minHeight: '100vh',
+          minWidth: '100vw',
+          position: 'fixed',
+          top: 0,
+        }}
+      >
         <MarkerComponent
           latitude={position.latitude}
           longitude={position.longitude}
@@ -62,7 +70,9 @@ export default function Map() {
             name: 'Example Room',
             description: 'This is an example room.',
             category: 'evento',
-            position: [position.latitude, position.longitude],
+            position: [
+              { latitude: position.latitude, longitude: position.longitude },
+            ],
             image: [
               {
                 url: 'https://cdn.discordapp.com/attachments/771470980324524043/1074461555904745524/f53137d8-2472-434b-8ab0-385a611f0c8d.JPG',
@@ -79,10 +89,6 @@ export default function Map() {
             accessibility: true,
             capacity: 30,
             equipments: ['Projector', 'Whiteboard', 'Desks'],
-            operation: {
-              start: '08:00',
-              end: '18:00',
-            },
             responsible: {
               name: 'John Doe',
               email: 'johndoe@example.com',

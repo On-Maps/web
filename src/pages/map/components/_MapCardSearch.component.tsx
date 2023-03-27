@@ -58,7 +58,7 @@ export function MapCardSearch({ room, type = 'list', ...rest }: TProps) {
                 })}
                 {room.name}
               </h3>
-              <div>
+              <div style={{ width: '100%' }}>
                 <p
                   className={`${styles.subtitle} ${styles.container_subtitle}`}
                 >

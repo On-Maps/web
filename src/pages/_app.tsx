@@ -7,13 +7,14 @@ import { queryClient } from '@/clients'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { createCustomTheme } from '@/theme'
 import AxiosInterceptor from '@/clients/http/AxiosInterceptor'
+import { DefaultLayout, DashboardLayout } from '@/layouts'
+import React from 'react'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const isMapRoute = Component.name === 'Map'
-  const isLoginRoute = Component.name === 'Login'
-  const isHomeRoute = Component.name === ''
+  const noLayoutComponent = ['Login', 'Home', 'Custom404', 'Map']
+  const defaultLayoutComponent = ['PlaceList']
 
-  if (isMapRoute || isLoginRoute || isHomeRoute) {
+  if (noLayoutComponent.includes(Component.name)) {
     return (
       <MapInfoProvider>
         <NoSSR>
@@ -23,12 +24,32 @@ export default function App({ Component, pageProps }: AppProps) {
     )
   }
 
+  if (defaultLayoutComponent.includes(Component.name)) {
+    return defaultProvider({
+      children: <Component {...pageProps} />,
+      layout: DefaultLayout,
+    })
+  }
+
+  return defaultProvider({
+    children: <Component {...pageProps} />,
+    layout: DashboardLayout,
+  })
+}
+
+function defaultProvider({
+  children,
+  layout,
+}: {
+  children: React.ReactNode
+  layout: any
+}) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={createCustomTheme()}>
         <CssBaseline />
         <AxiosInterceptor>
-          <Component {...pageProps} />
+          {React.createElement(layout, {}, children)}
         </AxiosInterceptor>
       </ThemeProvider>
     </QueryClientProvider>
