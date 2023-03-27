@@ -46,7 +46,7 @@ export default function PlaceList() {
   const [campus, setCampus] = React.useState(null);
   const [typeCard, setTypeCard] = useState<'grid' | 'list' | null>(null)
   return (
-    <Box sx={styles}>
+    <Box>
       <Box sx={{ ...flexCenterContent, m: 4 }}>
         <SelectCampus
           value={campus}
@@ -54,7 +54,6 @@ export default function PlaceList() {
           buttonProps={{
             sx: {
               width: 1,
-              p: 2,
               borderRadius: 2,
               '&.Mui-selected': {
                 backgroundColor: 'primary.main',
@@ -67,30 +66,23 @@ export default function PlaceList() {
           }}
         />
       </Box>
-      <Box
-        sx={{ ...flexCenterContent, gap: 2, width: 1, flexDirection: 'column', p: 4, fontWeight: 700, color: '#0000008A' }}
-      >
-        <Box sx={{
-          width: 1, alignItems: 'center', display: 'flex', gap: 2, flexDirection: 'column', backgroundColor: '#fff', borderRadius: 2
-        }}>
+      <Box sx={{ ...flexCenterContent, flexDirection: 'row' }}>
+        <Image src="/search-animate.svg" width={500} height={500} alt={"search image"} />
+        <Box sx={{ ...flexCenterContent, flexDirection: 'column', gap: 4, marginBottom: 35 }}>
           <h1>Descubra lugares, faça uma pesquisa!</h1>
-          <Box
-            sx={{
-              ...flexCenterContent, gap: 2, width: '80%', mb: 6
-            }}
-          >
+          <Box sx={{ ...flexCenterContent, flexDirection: 'row', width: '100%', gap: 4 }}>
             <TextField
-              sx={{
-                height: 'auto',
-                width: '100%',
-              }}
+              sx={{ height: 'auto' }}
               InputProps={{
                 endAdornment: <Search />,
               }}
               disabled={!campus}
               placeholder={
                 campus
-                  ? `Pesquise por ${campus === 'cornelio' ? 'Cornélio Procópio' : campus === 'bandeirantes' ? 'Bandeirantes' : 'Jacarezinho'}` : 'Selecione um campus'
+                  ? `Pesquise por ${campus === 'cornelio' ?
+                    'Cornélio Procópio' : campus === 'bandeirantes' ?
+                      'Bandeirantes' : 'Jacarezinho'}` :
+                  'Selecione um campus'
               }
             />
             {typeCard === 'list' ? (
@@ -104,32 +96,34 @@ export default function PlaceList() {
             )}
           </Box>
         </Box>
-        {rooms.map((room) => {
-          return <PlaceCardSearch type={typeCard} room={room} key={room.id} />
-        })}
-        <Box
-          sx={{
-            ...flexCenterContent, gap: 2, alignItems: 'center', backgroundColor: '#fff', borderRadius: 2, boxShadow: 2, md: { flexDirection: 'row' }
-          }}
-        >
-          <Image src="/search-animate.svg" width={500} height={500} alt={"search image"} />
-          <Box sx={{
-            display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', gap: 2, p: 4, fontSize: 20, fontWeight: 600, color: '#0000008A'
-          }} >
-            <h2>Busque locais novos!</h2>
-            <h3> - Salas específicas </h3>
-            <h3> - Eventos novos </h3>
-            <h3> - Locais de estudo </h3>
-            <h3> - Locais de lazer </h3>
-          </Box>
-        </Box>
       </Box>
+      {rooms.map((room) => {
+        return <PlaceCardSearch type={typeCard} room={room} key={room.id} />
+      })}
     </Box >
   )
 }
 
-const styles: SxProps<Theme> = {
-  container: {
-    ...flexCenterContent, flexDirection: 'column', gap: 4, p: 4
+const containerMain: SxProps<Theme> = {
+  containerMain: {
+    ...flexCenterContent, flexDirection: 'grid'
   },
+}
+
+const subContainer: SxProps<Theme> = {
+  subContainer: {
+    ...flexCenterContent, flexDirection: 'column', gap: 4, p: 4
+  }
+}
+
+const searchContainer: SxProps<Theme> = {
+  searchContainer: {
+  }
+}
+
+const textFiled: SxProps<Theme> = {
+  textFiled: {
+    height: 'auto',
+    width: '80%',
+  }
 }
