@@ -20,6 +20,8 @@ import MenuIcon from '@mui/icons-material/Menu'
 import BusinessIcon from '@mui/icons-material/Business'
 import Logo from '@/assets/logo2Equipe.png'
 import Image from 'next/image'
+import { AccountMenu } from './AccountMenu.component'
+import Link from 'next/link'
 
 interface HeaderDrawerProps {
   children: React.ReactNode
@@ -160,42 +162,25 @@ export const Navigation = (props: HeaderDrawerProps) => {
                   aria-haspopup="true"
                   aria-expanded={Boolean(aux.anchorElUser) ? 'true' : undefined}
                 >
-                  <Image src={Logo} alt="Logo" height={30} />
-                </ListItemIcon>
-              </Tooltip>
-              {/* {icon && (
-                <ListItemIcon sx={{ px: 1 }}>
                   <Link
-                    to="/home"
+                    href="/"
                     style={{ display: 'flex', alignItems: 'center' }}
                   >
-                    <img src={icon} alt="Logo" height="18px" />
+                    <Image src={Logo} alt="Logo" height={30} />
                   </Link>
                 </ListItemIcon>
-              )}
-
+              </Tooltip>
               <AccountMenu
                 handleClose={handleClose}
                 open={Boolean(aux.anchorElUser)}
                 anchorEl={aux.anchorElUser}
-              /> */}
+              />
             </ListItem>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <ListItem disablePadding>
-                {/* {companyName && (
-                  <Typography
-                    variant="h5"
-                    component="div"
-                    sx={{
-                      flexGrow: 1,
-                      color: 'white',
-                      minWidth: '300px',
-                      textAlign: 'right',
-                    }}
-                  >
-                    {companyName}
-                  </Typography>
-                )} */}
+                <Typography variant="h5" component="div" sx={styles.headerName}>
+                  Gabriel Lindo
+                </Typography>
                 <Tooltip
                   title="Administrador"
                   placement="bottom"
@@ -203,7 +188,7 @@ export const Navigation = (props: HeaderDrawerProps) => {
                 >
                   <ListItemButton
                     component="button"
-                    onClick={handleOpenCompanies}
+                    onClick={handleClick}
                     sx={{ padding: 0 }}
                   >
                     <ListItemIcon>
@@ -211,20 +196,6 @@ export const Navigation = (props: HeaderDrawerProps) => {
                     </ListItemIcon>
                   </ListItemButton>
                 </Tooltip>
-                {/* <ListItemIcon
-                  onClick={handleClick}
-                  aria-controls="account-menu"
-                  aria-haspopup="true"
-                  aria-expanded={Boolean(aux.anchorElApps) ? 'true' : undefined}
-                >
-                  <img
-                    src={user?.picture}
-                    alt="avatar"
-                    width="35"
-                    height="35"
-                    style={{ borderRadius: 50 }}
-                  />
-                </ListItemIcon> */}
               </ListItem>
             </Box>
           </Toolbar>
@@ -280,5 +251,12 @@ const styles = {
       margin: '0 !important',
       width: '100%',
     },
+  },
+  headerName: {
+    flexGrow: 1,
+    color: 'white',
+    minWidth: '300px',
+    textAlign: 'right',
+    mr: 2,
   },
 }
