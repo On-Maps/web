@@ -1,4 +1,5 @@
 import {
+  Typography,
   Box,
   FormControl,
   Grid,
@@ -6,19 +7,22 @@ import {
   InputLabel,
   Switch,
   SwitchProps,
+  Tooltip,
+  TooltipProps,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Controller, useFormContext } from 'react-hook-form'
 import { flexCenterContent } from '@/utils/cssInJsBlocks'
 import { useFormComponents } from './context/FormComponents.context'
 import { get as _get } from 'lodash'
-
+import InfoIcon from '@mui/icons-material/Info'
 type Props = {
   id: string
   label: string
   gridProps?: Omit<GridTypeMap['props'], 'item' | 'container'>
   switchProps?: SwitchProps
   labelProps?: any
+  tooltipProps?: Omit<TooltipProps, 'children'>
 }
 
 export const FormSwitchInput = (props: Props) => {
@@ -29,7 +33,7 @@ export const FormSwitchInput = (props: Props) => {
     formState: { errors },
   } = useFormContext<any>()
 
-  const { gridProps, id, switchProps, label, labelProps } = props
+  const { gridProps, id, switchProps, label, labelProps, tooltipProps } = props
 
   return (
     <Grid sx={{ ...flexCenterContent }} xs={12} {...gridProps} item>
@@ -57,6 +61,11 @@ export const FormSwitchInput = (props: Props) => {
       >
         {label}
       </InputLabel>
+      {tooltipProps && (
+        <Tooltip {...tooltipProps}>
+          <InfoIcon sx={styles.info} />
+        </Tooltip>
+      )}
     </Grid>
   )
 }
@@ -116,3 +125,13 @@ const IOSSwitch = styled((props: SwitchProps) => (
     }),
   },
 }))
+
+const styles = {
+  info: {
+    fontSize: 16,
+    color: 'primary.main',
+    mb: 'auto',
+    ml: 0.5,
+    cursor: 'default',
+  },
+}
