@@ -1,99 +1,146 @@
 import React, { createElement } from 'react'
 import Link from 'next/link'
-import { DataMapCategories } from '@/data'
-import { AiFillStar, AiOutlineRight } from 'react-icons/ai'
-import { characterLimit } from '@/utils/functions'
+import { DataEquipaments, DataMapCategories } from '@/data'
 import Image from 'next/image'
-import { Box } from '@mui/material'
-import { flexCenterContent } from "@/utils/cssInJsBlocks";
+import { characterLimit } from '@/utils/functions'
+import {
+  Box,
+  Grid,
+  CardMedia,
+  Card,
+  CardContent,
+  IconButton,
+  Typography,
+} from '@mui/material'
+import { flexCenterContent } from '@/utils/cssInJsBlocks'
+import { AiFillStar, AiOutlineRight } from 'react-icons/ai'
+import { TPlace } from '@/types'
+import { grey } from '@mui/material/colors'
 
 type TProps = {
-  room: {
-    id: number
-    name: string
-    description: string
-    category: string
-    piso: number
-    link: string
-    latitude: number
-    longitude: number
-    bloco: string
-  }
-  type?: 'grid' | 'list' | null
+  place: TPlace
 }
 
-export function PlaceCardSearch({ room, type = 'list' }: TProps) {
+export function PlaceCardSearch({ place }: TProps) {
   const icon =
-    DataMapCategories.find((item) => item.value === room.category)?.icon ||
+    DataMapCategories.find((item) => item.value === place.category)?.icon ||
     AiFillStar
 
-  if (!room) {
+  if (!place) {
     return <div></div>
   }
 
-  if (!type || type == null) return <div></div>
-
   return (
-    <Box sx={styles.containerMain}>
-      {type === 'list' ? (
-        <Link href={`/place/${room.id}`}>
-          <Box sx={styles.cardListContainer}>
-            {createElement(icon, {
-              size: 20,
-              color: 'black',
-            })}
-            <Box sx={styles.cardListStyle}>
-              <h3>{room.name}</h3>
-              <span>
-                Tipo: {room.category} | Piso: {room.piso} | Bloco: {room.bloco}
-              </span>
-            </Box>
-            <AiOutlineRight size={20} color="black" />
-          </Box>
-        </Link>
-      ) : (
-        <Link href={`/place/${room.id}`}>
-          <Box sx={styles.cardListContainerDetail}>
-            <Box sx={styles.imageStyle}>
-              <Image src={room.link} alt="logo" height={80} width={60} />
-            </Box>
-            <Box sx={styles.cardListDetailsStyle}>
-              <h3>
-                {room.name}
-              </h3>
-              <Box sx={{ display: 'flex', gap: 4, mr: 4 }}>
-                <Box>
-                  <p>Tipo: {room.category}</p>
-                  <p>Piso: {room.piso}</p>
+    <>
+      <Link
+        href={`/place/${place.id}`}
+        style={{
+          marginRight: 10,
+          marginTop: 5,
+          marginBottom: 5,
+        }}
+      >
+        <Card sx={styles.container}>
+          <CardContent
+            sx={{
+              p: 3,
+            }}
+          >
+            <Typography
+              component="div"
+              variant="h4"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                mb: 2,
+              }}
+            >
+              {createElement(icon, {
+                size: 20,
+                style: { marginRight: 6 },
+              })}
+              {place.name}
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                {characterLimit(place.description, 120)}
+              </Grid>
+              <Grid item xs={12} sm={4} sx={styles.capitalized}>
+                Tipo: {place.category}
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                Piso: {place.floor}
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                Bloco: {place.building}
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  display: { xs: 'none', sm: 'block' },
+                }}
+              >
+                <Box sx={styles.containerEquipments}>
+                  {DataEquipaments.filter((item) =>
+                    place.equipments.includes(item.value)
+                  )
+                    .slice(0, 3)
+                    .map((item, _index) => {
+                      return (
+                        <>
+                          <Box key={item.value} sx={styles.cardEquipment}>
+                            {createElement(item.icon, {
+                              sx: {
+                                fontSize: 18,
+                              },
+                            })}
+                            {item.title}
+                          </Box>
+                          {_index === 2 && place.equipments.length > 3 && '...'}
+                        </>
+                      )
+                    })}
                 </Box>
-                <Box>
-                  {characterLimit(room.description, 75)}
-                  <p>Bloco: {room.bloco}</p>
-                </Box>
-                <AiOutlineRight size={20} color="black" />
-              </Box>
-            </Box>
-          </Box>
-        </Link>
-      )}
-    </Box>
+              </Grid>
+            </Grid>
+          </CardContent>
+          <CardMedia
+            component="img"
+            sx={{
+              width: 151,
+              display: {
+                xs: 'none',
+                md: 'block',
+              },
+            }}
+            image={place.image[0].url}
+            alt={place.name}
+          />
+        </Card>
+      </Link>
+    </>
   )
 }
 
 const styles = {
-  containerMain: {
-    width: 'fit-content',
-    height: 'fit-content',
-  },
-  cardListContainer: {
+  container: {
     display: 'flex',
-    alignItems: 'center',
-    gap: 4,
-    width: '100%',
-    backgroundColor: 'white',
-    mb: 4,
-    p: 2,
-    borderRadius: 4,
+    backgroundColor: '#f7f7f7',
+    transition: 'all 0.3s ease',
+    borderWidth: 2,
+    borderColor: 'transparent',
+    borderStyle: 'solid',
+    '&:hover': {
+      backgroundColor: '#ffffff',
+      borderWidth: 2,
+      borderColor: 'primary.main',
+      borderStyle: 'solid',
+    },
+  },
+  flexColumn: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   cardListContainerDetail: {
     display: 'flex',
@@ -122,5 +169,26 @@ const styles = {
     overflow: 'hidden',
     width: 60,
     height: 80,
-  }
+  },
+  containerEquipments: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 1,
+  },
+  capitalized: {
+    textTransform: 'capitalize',
+  },
+  cardEquipment: {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: 'secondary.main',
+    gap: 1,
+    fontSize: 12,
+    boxShadow: 1,
+    px: 1,
+    py: 0.2,
+    borderRadius: 2,
+    whiteSpace: 'nowrap',
+  },
 }

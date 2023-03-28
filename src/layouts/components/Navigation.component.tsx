@@ -228,7 +228,18 @@ export const Navigation = (props: HeaderDrawerProps) => {
             { width: `${sideBar ? 'calc(100% - 64px)' : '100%'}` })
           }
         >
-          <Box mt={9} p={4}>
+          <Box
+            mt={9}
+            sx={{
+              p: {
+                xs: 0,
+                md: 4,
+              },
+              pt: {
+                xs: 2,
+              },
+            }}
+          >
             {children}
           </Box>
         </Box>

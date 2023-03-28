@@ -1,3 +1,4 @@
+import { TEquipaments } from './TEquipaments.type'
 import { TMapCategories } from './TMapCategories.type'
 
 export type TPlace = {
@@ -17,8 +18,8 @@ export type TPlace = {
   building: string
   campus: string
   accessibility: boolean
-  capacity: number
-  equipments: string[]
+  capacity?: number
+  equipments: TEquipaments[]
   date?: {
     start: string
     end: string
