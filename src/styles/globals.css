@@ -1,3 +1,19 @@
+:root {
+  --primary-main: #183883;
+  --primary-light: #2f4c8f;
+  --primary-dark: #0f1f4f;
+  --secondary-main: #f2f2f5;
+  --secondary-light: #fff;
+  --secondary-dark: #c9c9c9;
+  --tertiary-main: #57636f;
+  --tertiary-light: #78828b;
+  --tertiary-dark: #3c454d;
+  --tertiary-contrastText: #f2f2f5;
+  --background-default: #f2f2f5;
+  --background-paper: #fff;
+
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -95,4 +111,67 @@ input[type='checkbox'] {
 
 .leaflet-popup-content {
   margin: 15px !important;
+}
+
+.onmaps-loading-blue {
+  position: relative;
+  overflow: hidden;
+}
+
+.onmaps-loading-blue img {
+  margin-bottom: 10px;
+  width: auto;
+}
+
+.onmaps-loading-blue::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 5px;
+  background-color: var(--primary-main);
+  transform: translateX(-100%);
+  animation: moveBar 3s infinite;
+}
+
+
+.onmaps-loading-white {
+  position: relative;
+  overflow: hidden;
+}
+
+.onmaps-loading-white img {
+  width: auto;
+}
+
+.onmaps-loading-white::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: rgb(187, 187, 187);
+  transform: translateX(-100%);
+  animation: moveBar 3s infinite;
+}
+
+
+@keyframes moveBar {
+  0% {
+    transform: translateX(-100%);
+    width: 0;
+    /* Define a largura inicial do pseudo-elemento para 0 */
+
+  }
+
+  100% {
+    transform: translateX(100%);
+    width: calc(100% + 10px);
+    /* Define a largura final do pseudo-elemento para a largura da imagem + 10px */
+
+  }
 }
