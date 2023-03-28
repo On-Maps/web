@@ -9,6 +9,7 @@ import { createCustomTheme } from '@/theme'
 import AxiosInterceptor from '@/clients/http/AxiosInterceptor'
 import { DefaultLayout, DashboardLayout } from '@/layouts'
 import React from 'react'
+import { ToastProvider } from '@/hooks/useToast.hook'
 
 export default function App({ Component, pageProps }: AppProps) {
   const noLayoutComponent = ['Login', 'Home', 'Custom404', 'Map']
@@ -49,7 +50,9 @@ function defaultProvider({
       <ThemeProvider theme={createCustomTheme()}>
         <CssBaseline />
         <AxiosInterceptor>
-          {React.createElement(layout, {}, children)}
+          <ToastProvider>
+            {React.createElement(layout, {}, children)}
+          </ToastProvider>
         </AxiosInterceptor>
       </ThemeProvider>
     </QueryClientProvider>
