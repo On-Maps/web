@@ -18,6 +18,8 @@ import MapIcon from '@mui/icons-material/Map'
 import { MenuMap } from './MenuMap.component'
 import InfoIcon from '@mui/icons-material/Info'
 import { grey } from '@mui/material/colors'
+import TravelExploreIcon from '@mui/icons-material/TravelExplore'
+import EventIcon from '@mui/icons-material/Event'
 
 type TData = {
   title: string
@@ -48,6 +50,24 @@ export const DashboardSideBar = () => {
       title: 'Mapa',
       icon: <MapIcon />,
       route: false,
+      style: {
+        borderBottom: `1px solid ${grey[300]}`,
+      },
+    },
+    {
+      title: 'Buscar lugares',
+      icon: <TravelExploreIcon />,
+      path: '/place/list',
+      route: true,
+      style: {
+        borderBottom: `1px solid ${grey[300]}`,
+      },
+    },
+    {
+      title: 'Eventos',
+      icon: <EventIcon />,
+      path: '/event/list',
+      route: true,
       style: {
         borderBottom: `1px solid ${grey[300]}`,
       },

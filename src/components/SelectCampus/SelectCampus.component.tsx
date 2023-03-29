@@ -1,20 +1,30 @@
-import * as React from 'react';
-import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps } from "@mui/material";
+import * as React from 'react'
+import {
+  ToggleButton,
+  ToggleButtonGroup,
+  ToggleButtonGroupProps,
+  ToggleButtonProps,
+} from '@mui/material'
 
 interface ISelectCampusProps {
-  value: string | null;
-  setValue: React.Dispatch<React.SetStateAction<any>>;
-  buttonGroupProps?: Omit<ToggleButtonGroupProps, 'value' | 'onChange'>;
-  buttonProps?: Omit<ToggleButtonProps, 'value' | 'onChange'>;
+  value: string | null
+  setValue: React.Dispatch<React.SetStateAction<any>>
+  buttonGroupProps?: Omit<ToggleButtonGroupProps, 'value' | 'onChange'>
+  buttonProps?: Omit<ToggleButtonProps, 'value' | 'onChange'>
 }
 
-export function SelectCampus({ value, setValue, buttonGroupProps, buttonProps }: ISelectCampusProps) {
+export function SelectCampus({
+  value,
+  setValue,
+  buttonGroupProps,
+  buttonProps,
+}: ISelectCampusProps) {
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newAlignment: string,
+    newAlignment: string
   ) => {
-    setValue(newAlignment);
-  };
+    setValue(newAlignment)
+  }
 
   return (
     <>
@@ -25,9 +35,15 @@ export function SelectCampus({ value, setValue, buttonGroupProps, buttonProps }:
         onChange={handleChange}
         {...buttonGroupProps}
       >
-        <ToggleButton {...buttonProps} value="cornelio">Cornélio Procópio</ToggleButton>
-        <ToggleButton {...buttonProps} value="bandeirantes">Bandeirantes</ToggleButton>
-        <ToggleButton {...buttonProps} value="jacarezinho">Jacarezinho</ToggleButton>
+        <ToggleButton {...buttonProps} value="cornelio">
+          Cornélio Procópio
+        </ToggleButton>
+        <ToggleButton {...buttonProps} value="bandeirantes">
+          Bandeirantes
+        </ToggleButton>
+        <ToggleButton {...buttonProps} value="jacarezinho">
+          Jacarezinho
+        </ToggleButton>
       </ToggleButtonGroup>
     </>
   )
