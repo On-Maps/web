@@ -5,14 +5,11 @@ interface ICategoryProps {
   category: TMapCategories;
 }
 
-export default function Category() {
+export default function Category({ category }: ICategoryProps) {
   return (
     <Grid sx={styles.cardContainer}>
       <Box sx={styles.categoryCardStyle}>
-        <p>Bar</p>
-      </Box>
-      <Box sx={styles.categoryCardStyle}>
-        <p>Bar</p>
+        <p>{category}</p>
       </Box>
     </Grid>
   )

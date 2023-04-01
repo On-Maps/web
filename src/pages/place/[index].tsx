@@ -3,12 +3,22 @@ import Image from "next/image";
 import Category from "./components/_category";
 import { TPlace } from "@/types";
 import { Router } from "next/router";
-
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 interface IPlaceListProps {
   place: TPlace;
 }
 
-export default function PlaceList() {
+export default function PlaceList({ place }: IPlaceListProps) {
+  const router = useRouter();
+  const { params } = router.query;
+
+  useEffect(() => {
+    if (params) {
+      // Chamar via Axios ou fetch
+    }
+  }, [params]);
+
   return (
     <Box sx={styles.mainContainer}>
       <Grid sx={styles.subContainer}>
@@ -19,9 +29,9 @@ export default function PlaceList() {
           <h1>Laboratório 4</h1>
         </Box>
         <Box sx={styles.categoriesContainer}>
-          <Category />
+          <Category category="sala" />
         </Box>
-        <Grid container spacing={2} sx={styles.detailContainer}>
+        <Grid sx={styles.detailContainer}>
           <Box sx={styles.informationDetail}>
             <h1>
               Descrição
@@ -78,11 +88,14 @@ export default function PlaceList() {
               <Box>
                 <p>Nome:<span></span></p>
                 <p>Email:<span></span></p>
-              </Box>
-              <Box>
                 <p>Telefone:<span></span></p>
               </Box>
             </Box>
+          </Box>
+          <Box sx={styles.informationDetail}>
+            <h1>Localização</h1>
+            <p>Latitude:<span></span></p>
+            <p>Longitude:<span></span></p>
           </Box>
           <Box sx={styles.informationDetail}>
             <h1> Mais informações </h1>
@@ -90,23 +103,12 @@ export default function PlaceList() {
               <Box>
                 <p>Construindo:<span></span></p>
                 <p>Acessibilidade:<span></span></p>
-
-              </Box>
-              <Box>
                 <p>Capacidade:<span></span></p>
                 <p>Aberto 24h:<span></span></p>
-              </Box>
-              <Box>
                 <p>Criado:<span></span></p>
                 <p>Atualizado:<span></span></p>
               </Box>
             </Box>
-          </Box>
-          <Box>
-            <h1>Localização</h1>
-            <p>Latitude:<span></span></p>
-            <p>Longitude:<span></span></p>
-
           </Box>
         </Grid>
       </Grid>
@@ -141,13 +143,14 @@ const styles = {
     m: 4,
     gridTemplateColumns: '1fr 1fr',
     '@media (max-width: 768px)': {
-      m: 1
+      m: 1,
+      gridTemplateColumns: '1fr',
     }
   },
   informationDetail: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
+
   },
   imageContainer: {
     width: '100%',
