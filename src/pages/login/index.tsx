@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Link from 'next/link';
-import styles from '@/styles/Home.module.css'
+import Link from 'next/link'
+import styleModule from '@/styles/Home.module.css'
 import {
   Grid,
   Card,
@@ -10,99 +10,107 @@ import {
   TextField,
   Button,
   Box,
-} from '@mui/material';
-import { Form } from '@/components/Form';
-import { useForm } from 'react-hook-form';
-import { login } from './validation';
+  useTheme,
+  Theme,
+} from '@mui/material'
+import { Form } from '@/components/Form'
+import { useForm } from 'react-hook-form'
+import { loginValidation } from './validation'
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const theme = useTheme()
+  const styles = makeStyles(theme)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const items = Array(10).fill(null)
 
   const formHandler = useForm<{
     username: string
     password: string
   }>({
     mode: 'all',
-    resolver: yupResolver(login()),
-    defaultValues: {
-      username: '',
-      password: '',
-    },
+    resolver: yupResolver(loginValidation()),
   })
   return (
-    <Grid container sx={useStyles().main}>
-      <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', zIndex: 1600 }}>
-        <Card sx={useStyles().root}>
+    <Grid container sx={styles.main}>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{ display: 'flex', justifyContent: 'center', zIndex: 1600 }}
+      >
+        <Card sx={styles.card}>
           <CardContent>
-            <Typography variant="h5" sx={useStyles().title}>
-              Bem-vindo ao login 👋
-            </Typography>
-            <Form
-              id="login-form"
-              handler={formHandler}
-              onSubmit={async (data) => {
-                console.log(data)
-              }}
-              sx={useStyles().form}
-            >
-              <TextField
-                label="Usuário"
-                variant="outlined"
-                sx={useStyles().input}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <TextField
-                label="Senha"
-                variant="outlined"
-                sx={useStyles().input}
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Box>
-                <Typography variant="body1">
-                  Não tem uma conta?{' '}
-                  <Link href="/cadastro" style={{ color: '#2E53AC' }}>
-                    Cadastre-se
-                  </Link>
-                </Typography>
-                <Typography variant="body1">
-                  Esqueceu sua senha?{' '}
-                  <Link href="/esqueceuSenha" style={{ color: '#2E53AC' }}>
-                    Recupere-a
-                  </Link>
-                </Typography>
-              </Box>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={useStyles().button}
+            <Box px={4}>
+              <Typography variant="h4" sx={styles.title}>
+                Bem-vindo ao login 👋
+              </Typography>
+              <Form
+                id="login-form"
+                handler={formHandler}
+                onSubmit={async (data) => {
+                  console.log(data)
+                }}
+                sx={styles.form}
               >
-                Login
-              </Button>
-            </Form>
+                <Form.TextInput
+                  id="username"
+                  label="Usuário"
+                  gridProps={{
+                    pl: '0 !important',
+                  }}
+                />
+                <Form.TextInput
+                  id="password"
+                  label="Senha"
+                  gridProps={{
+                    pl: '0 !important',
+                  }}
+                  textFieldProps={{
+                    type: 'password',
+                  }}
+                />
+                <Form.SubmitBtn
+                  form="config-form"
+                  gridProps={{
+                    pl: '0 !important',
+                    xs: 12,
+                  }}
+                  btnProps={{
+                    sx: styles.button,
+                  }}
+                  handler={formHandler}
+                >
+                  Login
+                </Form.SubmitBtn>
+              </Form>
+            </Box>
+            <Typography sx={styles.footer}>
+              Esqueceu sua senha?{' '}
+              <Link href="/recoveryPassword" style={{ color: '#2E53AC' }}>
+                Clique aqui
+              </Link>
+            </Typography>
+            <Typography sx={{ ...styles.footer, ...styles.recoveryPass }}>
+              Não tem uma conta?{' '}
+              <Link href="/signup" style={{ color: '#2E53AC' }}>
+                Cadastre-se
+              </Link>
+            </Typography>
           </CardContent>
         </Card>
       </Grid>
-      <div className={`${styles.Cloud} ${styles.Foreground}`}></div>
-      <div className={`${styles.Cloud} ${styles.Background}`}></div>
-      <div className={`${styles.Cloud} ${styles.Foreground}`}></div>
-      <div className={`${styles.Cloud} ${styles.Background}`}></div>
-      <div className={`${styles.Cloud} ${styles.Background}`}></div>
-      <div className={`${styles.Cloud} ${styles.Foreground}`}></div>
-      <div className={`${styles.Cloud} ${styles.Background}`}></div>
-      <div className={`${styles.Cloud} ${styles.Foreground}`}></div>
-      <div className={`${styles.Cloud} ${styles.Background}`}></div>
-      <div className={`${styles.Cloud} ${styles.Background}`}></div>
-      <div className={`${styles.Cloud} ${styles.Background}`}></div>
-      <div className={`${styles.Cloud} ${styles.Foreground}`}></div>
-    </Grid >
-  );
+      {items.map((_, index) => (
+        <div
+          key={index}
+          className={`${styleModule.Cloud} ${styleModule.Foreground}`}
+        ></div>
+      ))}
+    </Grid>
+  )
 }
 
-const useStyles = () => ({
+const makeStyles = (theme: Theme) => ({
   main: {
     display: 'flex',
     justifyContent: 'center',
@@ -113,17 +121,6 @@ const useStyles = () => ({
     animation: '$colors 15s ease infinite',
     '-webkit-animation': '$colors 15s ease infinite',
   },
-  '@keyframes colors': {
-    '0%': { background: '#345494' },
-    '25%': { background: '#2f4c8f' },
-    '50%': { background: '#7c8cbc' },
-    '75%': { background: '#2f4c8f' },
-    '100%': { background: '#345494' },
-  },
-  root: {
-    padding: 2,
-    width: '50%',
-  },
   title: {
     textAlign: 'center',
     marginBottom: 4,
@@ -132,12 +129,34 @@ const useStyles = () => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  input: {
-    marginBottom: 2,
-  },
   button: {
     alignSelf: 'center',
-    marginTop: 2,
     width: '100%',
   },
-});
+  '@keyframes colors': {
+    '0%': { background: '#345494' },
+    '25%': { background: '#2f4c8f' },
+    '50%': { background: '#7c8cbc' },
+    '75%': { background: '#2f4c8f' },
+    '100%': { background: '#345494' },
+  },
+  card: {
+    padding: 2,
+    pb: 0,
+    px: 0,
+    width: '50%',
+    '& .MuiCardContent-root': {
+      pb: 0,
+      px: 0,
+    },
+  },
+  footer: {
+    textAlign: 'center',
+    py: 2,
+    color: theme.palette.secondary.contrastText,
+  },
+  recoveryPass: {
+    mt: 4,
+    backgroundColor: theme.palette.secondary.dark,
+  },
+})

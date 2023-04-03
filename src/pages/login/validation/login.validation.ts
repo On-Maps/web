@@ -1,8 +1,7 @@
 import { Yup } from '@/utils/formValidator'
 
-export const login = () => {
+export const loginValidation = () => {
   return Yup.object().shape({
-    id: Yup.string().required(),
     username: Yup.string().required(),
     password: Yup.string().required(),
   })

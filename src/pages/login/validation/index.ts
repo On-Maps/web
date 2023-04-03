@@ -1,1 +1,1 @@
-export { login } from './login.validation'
+export { loginValidation } from './login.validation'
