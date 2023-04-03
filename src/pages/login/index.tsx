@@ -16,6 +16,7 @@ import {
 import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { loginValidation } from './validation'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 
 export default function Login() {
   const theme = useTheme()
@@ -33,6 +34,14 @@ export default function Login() {
   })
   return (
     <Grid container sx={styles.main}>
+      <Box sx={styles.goToHome} component={Link} href="/">
+        <ArrowBackIosIcon
+          sx={{
+            color: theme.palette.primary.light,
+          }}
+        />
+        <Typography variant="h6">Voltar</Typography>
+      </Box>
       <Grid
         item
         xs={12}
@@ -87,13 +96,19 @@ export default function Login() {
             </Box>
             <Typography sx={styles.footer}>
               Esqueceu sua senha?{' '}
-              <Link href="/recoveryPassword" style={{ color: '#2E53AC' }}>
+              <Link
+                href="/recoveryPassword"
+                style={{ color: theme.palette.primary.light }}
+              >
                 Clique aqui
               </Link>
             </Typography>
             <Typography sx={{ ...styles.footer, ...styles.recoveryPass }}>
               Não tem uma conta?{' '}
-              <Link href="/signup" style={{ color: '#2E53AC' }}>
+              <Link
+                href="/signup"
+                style={{ color: theme.palette.primary.light }}
+              >
                 Cadastre-se
               </Link>
             </Typography>
@@ -158,5 +173,26 @@ const makeStyles = (theme: Theme) => ({
   recoveryPass: {
     mt: 4,
     backgroundColor: theme.palette.secondary.dark,
+  },
+  goToHome: {
+    color: theme.palette.primary.light,
+    position: 'absolute',
+    display: 'flex',
+    alignItems: 'center',
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    top: 20,
+    left: 0,
+    zIndex: 1500,
+    width: 'auto',
+    textAlign: 'center',
+    padding: '4px 20px',
+    backgroundColor: theme.palette.background.paper,
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.background.paper,
+    },
   },
 })
