@@ -1,43 +1,162 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
-import styles from '../login/styles/login.module.css'
-import { FaMapMarkerAlt } from 'react-icons/fa'
+import styleModule from '@/styles/Home.module.css'
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  useTheme,
+  Theme,
+} from '@mui/material'
+import { Form } from '@/components/Form'
+import { useForm } from 'react-hook-form'
+import { loginValidation } from './validation'
 
 export default function Login() {
+  const theme = useTheme()
+  const styles = makeStyles(theme)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const items = Array(10).fill(null)
+
+  const formHandler = useForm<{
+    username: string
+    password: string
+  }>({
+    mode: 'all',
+    resolver: yupResolver(loginValidation()),
+  })
   return (
-    <section className={styles.sectionContainer}>
-      <main className={styles.mainContainer}>
-        <Image
-          className={styles.imageContainer}
-          src="login.svg"
-          alt="Login"
-          width={600}
-          height={440}
-        />
-        <div className={styles.cardContainer}>
-          <form className={styles.formContainer}>
-            <h1>Login 🙌</h1>
-            <div className={styles.line} />
-            <input type="text" placeholder="E-mail" />
-            <input type="password" placeholder="Senha" />
-            <div className={styles.rememberMeContainer}>
-              <div>
-                <input type="checkbox" id="remember" />
-                <label htmlFor="remember">Lembrar-me</label>
-              </div>
-              <Link href="#">Esqueceu a senha?</Link>
-            </div>
-            <button type="submit">Entrar</button>
-            <div className={styles.createAccount}>
-              <p>Não tem uma conta?</p>
-              <Link href="#" className={styles.span}>
+    <Grid container sx={styles.main}>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{ display: 'flex', justifyContent: 'center', zIndex: 1600 }}
+      >
+        <Card sx={styles.card}>
+          <CardContent>
+            <Box px={4}>
+              <Typography variant="h4" sx={styles.title}>
+                Bem-vindo ao login 👋
+              </Typography>
+              <Form
+                id="login-form"
+                handler={formHandler}
+                onSubmit={async (data) => {
+                  console.log(data)
+                }}
+                sx={styles.form}
+              >
+                <Form.TextInput
+                  id="username"
+                  label="Usuário"
+                  gridProps={{
+                    pl: '0 !important',
+                  }}
+                />
+                <Form.TextInput
+                  id="password"
+                  label="Senha"
+                  gridProps={{
+                    pl: '0 !important',
+                  }}
+                  textFieldProps={{
+                    type: 'password',
+                  }}
+                />
+                <Form.SubmitBtn
+                  form="config-form"
+                  gridProps={{
+                    pl: '0 !important',
+                    xs: 12,
+                  }}
+                  btnProps={{
+                    sx: styles.button,
+                  }}
+                  handler={formHandler}
+                >
+                  Login
+                </Form.SubmitBtn>
+              </Form>
+            </Box>
+            <Typography sx={styles.footer}>
+              Esqueceu sua senha?{' '}
+              <Link href="/recoveryPassword" style={{ color: '#2E53AC' }}>
+                Clique aqui
+              </Link>
+            </Typography>
+            <Typography sx={{ ...styles.footer, ...styles.recoveryPass }}>
+              Não tem uma conta?{' '}
+              <Link href="/signup" style={{ color: '#2E53AC' }}>
                 Cadastre-se
               </Link>
-            </div>
-          </form>
-        </div>
-      </main>
-    </section>
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      {items.map((_, index) => (
+        <div
+          key={index}
+          className={`${styleModule.Cloud} ${styleModule.Foreground}`}
+        ></div>
+      ))}
+    </Grid>
   )
 }
+
+const makeStyles = (theme: Theme) => ({
+  main: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 1,
+    height: '100vh',
+    background: 'linear-gradient(45deg, #345494, #2f4c8f, #7c8cbc, #345494)',
+    animation: '$colors 15s ease infinite',
+    '-webkit-animation': '$colors 15s ease infinite',
+  },
+  title: {
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  button: {
+    alignSelf: 'center',
+    width: '100%',
+  },
+  '@keyframes colors': {
+    '0%': { background: '#345494' },
+    '25%': { background: '#2f4c8f' },
+    '50%': { background: '#7c8cbc' },
+    '75%': { background: '#2f4c8f' },
+    '100%': { background: '#345494' },
+  },
+  card: {
+    padding: 2,
+    pb: 0,
+    px: 0,
+    width: '50%',
+    '& .MuiCardContent-root': {
+      pb: 0,
+      px: 0,
+    },
+  },
+  footer: {
+    textAlign: 'center',
+    py: 2,
+    color: theme.palette.secondary.contrastText,
+  },
+  recoveryPass: {
+    mt: 4,
+    backgroundColor: theme.palette.secondary.dark,
+  },
+})

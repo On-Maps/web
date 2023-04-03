@@ -17,11 +17,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
   if (noLayoutComponent.includes(Component.name)) {
     return (
-      <MapInfoProvider>
-        <NoSSR>
-          <Component {...pageProps} />
-        </NoSSR>
-      </MapInfoProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={createCustomTheme()}>
+          <CssBaseline />
+          <AxiosInterceptor>
+            <ToastProvider>
+              <MapInfoProvider>
+                <NoSSR>
+                  <Component {...pageProps} />
+                </NoSSR>
+              </MapInfoProvider>
+            </ToastProvider>
+          </AxiosInterceptor>
+        </ThemeProvider>
+      </QueryClientProvider>
     )
   }
 
