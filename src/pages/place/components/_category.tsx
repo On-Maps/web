@@ -1,17 +1,21 @@
+import { DataMapCategories } from "@/data";
 import { TMapCategories } from "@/types";
-import { Box, Grid, Icon } from "@mui/material";
+import { Box, Grid, Icon, Typography } from "@mui/material";
+import { createElement } from "react";
 
 interface ICategoryProps {
   category: TMapCategories;
 }
 
 export default function Category({ category }: ICategoryProps) {
+  const icon = DataMapCategories.find((item) => item.value === category)?.icon;
   return (
     <Grid sx={styles.cardContainer}>
       <Box sx={styles.categoryCardStyle}>
-        <p>{category}</p>
+        {createElement(icon, { size: 20 })}
+        <Typography variant="body2">{category}</Typography>
       </Box>
-    </Grid>
+    </Grid >
   )
 }
 
@@ -20,7 +24,6 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     gap: 1,
-    mt: 2
   },
   categoryCardStyle: {
     display: 'flex',
@@ -30,5 +33,6 @@ const styles = {
     borderRadius: 10,
     p: 1,
     backgroundColor: '#F5F5F5',
+    gap: 1
   }
 }
