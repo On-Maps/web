@@ -8,6 +8,7 @@ import { createElement, useEffect } from "react";
 import { DataEquipaments } from "@/data";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper";
+import Carousel from "react-material-ui-carousel";
 
 interface IPlaceListProps {
   place: TPlace;
@@ -46,7 +47,7 @@ export default function PlaceList({ place }: IPlaceListProps) {
       },
       {
         url: "https://cdn.discordapp.com/attachments/771470980324524043/1001706440601370766/preview1.png",
-        name: "Sala 1",
+        name: "Sala 2",
       },
     ],
   };
@@ -59,29 +60,19 @@ export default function PlaceList({ place }: IPlaceListProps) {
   return (
     <Box sx={styles.mainContainer}>
       <Box sx={styles.subContainer}>
-        <Box sx={styles.imageContainer}>
-          {/* <Swiper
-            pagination={{
-              dynamicBullets: true,
-            }}
-            navigation={true}
-            loop={true}
-            modules={[Pagination, Navigation, Autoplay]}
-          >
-            {example.image.map((image, index) => (
-              <SwiperSlide key={index}  >
-                <Box>
-                  <Image
-                    src={image.url}
-                    alt={image.name}
-                    width={400}
-                    height={400}
-                  />
-                </Box>
-              </SwiperSlide>
-            ))}
-          </Swiper> */}
-        </Box>
+        <Carousel sx={styles.imageContainer}>
+          {example?.image.map((item, index) => {
+            return (
+              <Image
+                height={350}
+                key={index}
+                src={item.url}
+                alt={item.name}
+                width={400} // TODO: Mudar para % para seguir a proporção da imagem
+              />
+            )
+          })}
+        </Carousel>
         <Box sx={styles.titleContainer}>
           <Typography variant="h3">
             titulo
@@ -146,7 +137,6 @@ export default function PlaceList({ place }: IPlaceListProps) {
                 {DataEquipaments.filter((item) =>
                   example?.equipments.includes(item.value)
                 )
-                  .slice(0, 3)
                   .map((item, _index) => {
                     return (
                       <>
@@ -158,7 +148,6 @@ export default function PlaceList({ place }: IPlaceListProps) {
                           })}
                           {item.title}
                         </Box>
-                        {_index === 2 && example?.equipments.length > 3 && '...'}
                       </>
                     )
                   })}
@@ -239,8 +228,6 @@ const styles = {
     }
   },
   imageContainer: {
-    // display: 'flex',
-    // justifyContent: 'center',
     width: '100%',
     height: '400px',
   },
@@ -276,9 +263,8 @@ const styles = {
     gap: 1,
     fontSize: 12,
     boxShadow: 1,
-    px: 1,
-    py: 0.2,
-    borderRadius: 2,
+    p: 1,
+    borderRadius: 4,
     whiteSpace: 'nowrap',
   },
 }
