@@ -6,7 +6,7 @@ import { Router } from "next/router";
 import { useRouter } from "next/router";
 import { createElement, useEffect } from "react";
 import { DataEquipaments } from "@/data";
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper";
 
 interface IPlaceListProps {
@@ -58,7 +58,7 @@ export default function PlaceList({ place }: IPlaceListProps) {
 
   return (
     <Box sx={styles.mainContainer}>
-      <Grid sx={styles.subContainer}>
+      <Box sx={styles.subContainer}>
         <Box sx={styles.imageContainer}>
           {/* <Swiper
             pagination={{
@@ -132,19 +132,6 @@ export default function PlaceList({ place }: IPlaceListProps) {
               <Box sx={styles.uselessContainer}>
                 <Box>
                   {place?.capacity == 0
-                    ? null :
-                    <Typography variant="body2">Capacidade: {place?.capacity}</Typography>
-                  }
-                  <Typography variant="body2">Criado:<span></span></Typography>
-                  <Typography variant="body2">Atualizado:<span></span></Typography>
-                </Box>
-              </Box>
-            </Box>
-            <Box sx={styles.informationDetail}>
-              <Typography variant="h4"> Mais informações </Typography>
-              <Box sx={styles.uselessContainer}>
-                <Box>
-                  {place?.capacity == 0
                     ? <Typography variant="body2">Capacidade: {place?.capacity}</Typography>
                     : null
                   }
@@ -155,40 +142,41 @@ export default function PlaceList({ place }: IPlaceListProps) {
             </Box>
             <Box sx={styles.informationDetail}>
               <Typography variant="h4">Equipamentos</Typography>
-              {DataEquipaments.filter((item) =>
-                place?.equipments.includes(item.value)
-              )
-                .slice(0, 3)
-                .map((item, _index) => {
-                  return (
-                    <>
-                      <Box key={item.value} sx={styles.cardEquipment}>
-                        {createElement(item.icon, {
-                          sx: {
-                            fontSize: 18,
-                          },
-                        })}
-                        {item.title}
-                      </Box>
-                      {_index === 2 && place.equipments.length > 3 && '...'}
-                    </>
-                  )
-                })}
+              <Box sx={styles.equipContainer}>
+                {DataEquipaments.filter((item) =>
+                  example?.equipments.includes(item.value)
+                )
+                  .slice(0, 3)
+                  .map((item, _index) => {
+                    return (
+                      <>
+                        <Box key={item.value} sx={styles.cardEquipment}>
+                          {createElement(item.icon, {
+                            sx: {
+                              fontSize: 18,
+                            },
+                          })}
+                          {item.title}
+                        </Box>
+                        {_index === 2 && example?.equipments.length > 3 && '...'}
+                      </>
+                    )
+                  })}
+              </Box>
             </Box>
           </Grid>
           <Box sx={styles.informationDetail}>
             <Typography variant="h4">Localização</Typography>
+
             <iframe
-              title="Google Maps"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              src={`https://www.google.com/maps/embed/v1/place?key=&q=SPACE_NEEDLE_SEATTLE+WA`}
-              allowFullScreen
-            />
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235203.81500692177!2d-43.58841988251077!3d-22.9111720903467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bde559108a05b%3A0x50dc426c672fd24e!2sRio+de+Janeiro%2C+RJ!5e0!3m2!1spt-BR!2sbr!4v1476880758681"
+              frameBorder="0"
+              width={'100%'}
+              allowFullScreen />
+
           </Box>
         </Grid>
-      </Grid>
+      </Box>
     </Box>
   )
 }
@@ -207,7 +195,6 @@ const styles = {
     borderRadius: 4,
     m: 4,
     boxShadow: 1,
-    width: '80%',
     '@media (max-width: 768px)': {
       display: 'grid',
       gridTemplateColumns: '1fr',
@@ -240,9 +227,20 @@ const styles = {
     flexDirection: 'column',
 
   },
-  imageContainer: {
+  equipContainer: {
     display: 'flex',
-    justifyContent: 'center',
+    mt: 2,
+    gap: 2,
+    '@media (max-width: 768px)': {
+      m: 1,
+      display: 'grid',
+      gridTemplateColumns: '1fr',
+      width: 'fit-content',
+    }
+  },
+  imageContainer: {
+    // display: 'flex',
+    // justifyContent: 'center',
     width: '100%',
     height: '400px',
   },
