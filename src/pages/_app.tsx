@@ -14,7 +14,7 @@ import { ToastProvider } from '@/hooks/useToast.hook'
 export default function App({ Component, pageProps }: AppProps) {
   const noThemeMui = ['Home']
   const noLayoutComponent = ['Login', 'Custom404', 'Map']
-  const defaultLayoutComponent = ['PlaceList']
+  const defaultLayoutComponent = ['PlaceList', 'PlaceID']
 
   if (noThemeMui.includes(Component.name)) {
     return defaultProvider({
