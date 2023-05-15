@@ -88,7 +88,7 @@ export default function Map() {
             campus: 'Example Campus',
             accessibility: true,
             capacity: 30,
-            equipments: ['Projector', 'Whiteboard', 'Desks'],
+            equipments: [],
             responsible: {
               name: 'John Doe',
               email: 'johndoe@example.com',

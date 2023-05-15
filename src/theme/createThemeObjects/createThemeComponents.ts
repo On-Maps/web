@@ -65,6 +65,15 @@ export const createThemeComponents = (): Components<Theme> => {
     },
     MuiTypography: {
       styleOverrides: {
+        h1: {
+          color: '#183883',
+        },
+        h2: {
+          color: '#183883',
+        },
+        h3: {
+          color: '#183883',
+        },
         h4: {
           color: '#183883',
           fontWeight: 'bold',
